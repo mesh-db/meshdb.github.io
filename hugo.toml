@@ -1,0 +1,70 @@
+baseURL = "https://meshdb.io/"
+languageCode = "en-us"
+title = "MeshDB"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+enableEmoji = true
+pagination.pagerSize = 10
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[params]
+  env = "production"
+  title = "MeshDB"
+  description = "MeshDB — a modern graph database."
+  keywords = ["MeshDB", "graph database", "graph", "database"]
+  DateFormat = "January 2, 2006"
+  defaultTheme = "dark"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+
+  [params.homeInfoParams]
+    Title = "MeshDB"
+    Content = """
+Welcome to **MeshDB** — a modern graph database built for speed, scale, and developer joy.
+
+Model your data as a web of nodes and relationships. Query it with an expressive language. Deploy it anywhere.
+"""
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/mesh-db/mesh"
+
+  [params.assets]
+    disableHLJS = true
+    favicon = "/favicon.ico"
+
+[menu]
+  [[menu.main]]
+    identifier = "docs"
+    name = "Docs"
+    url = "/docs/"
+    weight = 10
+  [[menu.main]]
+    identifier = "blog"
+    name = "Blog"
+    url = "/posts/"
+    weight = 20
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/mesh-db/mesh"
+    weight = 30
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    style = "monokai"
+  [markup.goldmark.renderer]
+    unsafe = true
