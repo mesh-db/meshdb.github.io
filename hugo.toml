@@ -1,70 +1,91 @@
 baseURL = "https://meshdb.io/"
 languageCode = "en-us"
 title = "MeshDB"
-theme = "PaperMod"
+theme = ["github.com/google/docsy", "github.com/google/docsy/dependencies"]
 
 enableRobotsTXT = true
 enableEmoji = true
-pagination.pagerSize = 10
+enableGitInfo = true
 
-[minify]
-  disableXML = true
-  minifyOutput = true
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+pygmentsStyle = "tango"
 
-[params]
-  env = "production"
-  title = "MeshDB"
-  description = "MeshDB — a modern graph database."
-  keywords = ["MeshDB", "graph database", "graph", "database"]
-  DateFormat = "January 2, 2006"
-  defaultTheme = "dark"
-  disableThemeToggle = false
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowRssButtonInSectionTermList = true
-  UseHugoToc = true
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    style = "tango"
 
-  [params.homeInfoParams]
-    Title = "MeshDB"
-    Content = """
-Welcome to **MeshDB** — a modern graph database built for speed, scale, and developer joy.
+[imaging]
+  resampleFilter = "CatmullRom"
+  quality = 75
+  anchor = "smart"
 
-Model your data as a web of nodes and relationships. Query it with an expressive language. Deploy it anywhere.
-"""
-
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/mesh-db/mesh"
-
-  [params.assets]
-    disableHLJS = true
-    favicon = "/favicon.ico"
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    [languages.en.params]
+      title = "MeshDB"
+      description = "MeshDB — a modern graph database."
 
 [menu]
   [[menu.main]]
-    identifier = "docs"
-    name = "Docs"
-    url = "/docs/"
+    name = "Documentation"
     weight = 10
+    url = "/docs/"
   [[menu.main]]
-    identifier = "blog"
     name = "Blog"
-    url = "/posts/"
     weight = 20
+    url = "/blog/"
   [[menu.main]]
-    identifier = "github"
+    name = "GitHub"
+    weight = 30
+    url = "https://github.com/mesh-db/mesh"
+
+[params]
+  copyright = "The MeshDB Authors"
+
+  version_menu = "Releases"
+  version = "0.0"
+  url_latest_version = "https://meshdb.io"
+
+  github_repo = "https://github.com/mesh-db/mesh"
+  github_project_repo = "https://github.com/mesh-db/mesh"
+
+  offlineSearch = true
+  prism_syntax_highlighting = false
+
+  [params.taxonomy]
+    taxonomyCloud = ["tags", "categories"]
+    taxonomyCloudTitle = ["Tag Cloud", "Categories"]
+    taxonomyPageHeader = ["tags", "categories"]
+
+  [params.ui]
+    breadcrumb_disable = false
+    navbar_logo = false
+    sidebar_menu_compact = false
+    sidebar_search_disable = false
+    showLightDarkModeMenu = true
+
+  [params.ui.feedback]
+    enable = true
+    yes = 'Glad to hear it! Please <a href="https://github.com/mesh-db/mesh/issues/new">tell us how we can improve</a>.'
+    no = 'Sorry to hear that. Please <a href="https://github.com/mesh-db/mesh/issues/new">tell us how we can improve</a>.'
+
+  [[params.links.user]]
+    name = "GitHub Discussions"
+    url = "https://github.com/mesh-db/mesh/discussions"
+    icon = "fab fa-github"
+    desc = "Discussion and help from your fellow users"
+  [[params.links.developer]]
     name = "GitHub"
     url = "https://github.com/mesh-db/mesh"
-    weight = 30
-
-[markup]
-  [markup.highlight]
-    codeFences = true
-    guessSyntax = true
-    lineNos = false
-    style = "monokai"
-  [markup.goldmark.renderer]
-    unsafe = true
+    icon = "fab fa-github"
+    desc = "Development takes place here!"
+  [[params.links.developer]]
+    name = "GitHub Issues"
+    url = "https://github.com/mesh-db/mesh/issues"
+    icon = "fas fa-bug"
+    desc = "Report bugs or request features"
