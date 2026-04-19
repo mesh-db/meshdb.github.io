@@ -64,7 +64,7 @@ pygmentsStyle = "tango"
 
   [params.ui]
     breadcrumb_disable = false
-    navbar_logo = false
+    navbar_logo = true
     sidebar_menu_compact = false
     sidebar_search_disable = false
     showLightDarkModeMenu = true
