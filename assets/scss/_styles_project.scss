@@ -1,0 +1,340 @@
+// MeshDB landing page styles.
+// Brand colors mirror the logo gradient: indigo (#4F46E5) → teal (#14B8A6).
+
+$mdb-indigo: #4F46E5;
+$mdb-teal:   #14B8A6;
+$mdb-ink:    #0b0d12;
+
+// --- Hero ---------------------------------------------------------------
+
+.mdb-hero {
+  position: relative;
+  padding: 6rem 1rem 4rem;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(79, 70, 229, 0.18), transparent 60%),
+    radial-gradient(ellipse at 80% 0%, rgba(20, 184, 166, 0.15), transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
+  }
+}
+
+[data-bs-theme="dark"] .mdb-hero {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(79, 70, 229, 0.25), transparent 60%),
+    radial-gradient(ellipse at 80% 0%, rgba(20, 184, 166, 0.20), transparent 55%),
+    linear-gradient(180deg, #0b0d12 0%, #0f1220 100%);
+}
+
+.mdb-hero__inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.mdb-hero__logo {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 10px 30px rgba(79, 70, 229, 0.25));
+}
+
+.mdb-hero__title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(135deg, $mdb-indigo 0%, $mdb-teal 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mdb-hero__tagline {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 500;
+  margin: 0 0 1rem;
+  opacity: 0.88;
+}
+
+.mdb-hero__sub {
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  opacity: 0.72;
+  line-height: 1.6;
+}
+
+.mdb-hero__ctas {
+  margin-bottom: 2.5rem;
+}
+
+.mdb-hero__oneliner {
+  display: inline-block;
+  background: rgba(11, 13, 18, 0.92);
+  color: #e9ecf5;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  &::before {
+    content: "$ ";
+    color: $mdb-teal;
+    user-select: none;
+  }
+}
+
+// --- Sections -----------------------------------------------------------
+
+.mdb-section {
+  padding: 5rem 1rem;
+
+  &--alt {
+    background: #f6f7fb;
+  }
+}
+
+[data-bs-theme="dark"] .mdb-section--alt {
+  background: #10131c;
+}
+
+.mdb-section__heading {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.mdb-section__lede {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  font-size: 1.1rem;
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+// --- Feature grid -------------------------------------------------------
+
+.mdb-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mdb-feature {
+  padding: 1.75rem;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.12);
+    border-color: rgba(79, 70, 229, 0.25);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.5rem 0 0.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    opacity: 0.78;
+    margin: 0;
+  }
+
+  code {
+    font-size: 0.85em;
+    background: rgba(79, 70, 229, 0.08);
+    color: $mdb-indigo;
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+}
+
+[data-bs-theme="dark"] .mdb-feature {
+  background: #161a25;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+
+  code {
+    background: rgba(79, 70, 229, 0.2);
+    color: #a5b4fc;
+  }
+}
+
+.mdb-feature__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(20, 184, 166, 0.12));
+  color: $mdb-indigo;
+  margin-bottom: 0.5rem;
+}
+
+[data-bs-theme="dark"] .mdb-feature__icon {
+  color: #a5b4fc;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.25), rgba(20, 184, 166, 0.25));
+}
+
+// --- Quickstart ---------------------------------------------------------
+
+.mdb-quickstart {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mdb-quickstart__step {
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: $mdb-indigo;
+  }
+
+  pre {
+    background: #0b0d12;
+    color: #e9ecf5;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+}
+
+[data-bs-theme="dark"] .mdb-quickstart__step h4 {
+  color: #a5b4fc;
+}
+
+// --- Cluster modes ------------------------------------------------------
+
+.mdb-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mdb-mode {
+  padding: 1.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, $mdb-indigo, $mdb-teal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    opacity: 0.78;
+    margin: 0;
+  }
+
+  code {
+    font-size: 0.85em;
+    background: rgba(79, 70, 229, 0.08);
+    color: $mdb-indigo;
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+}
+
+[data-bs-theme="dark"] .mdb-mode {
+  background: #161a25;
+  border-color: rgba(255, 255, 255, 0.08);
+
+  code {
+    background: rgba(79, 70, 229, 0.2);
+    color: #a5b4fc;
+  }
+}
+
+// --- Final CTA ----------------------------------------------------------
+
+.mdb-cta {
+  padding: 5rem 1rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(79, 70, 229, 0.10), transparent 60%),
+    #ffffff;
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    opacity: 0.72;
+    margin-bottom: 2rem;
+  }
+}
+
+[data-bs-theme="dark"] .mdb-cta {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(79, 70, 229, 0.18), transparent 60%),
+    #0b0d12;
+}
+
+// --- Remove docsy's default home padding so our sections own it ---------
+
+body.td-home .td-main {
+  padding: 0 !important;
+  max-width: 100%;
+}
+
+body.td-home .td-main > * {
+  padding-left: 0;
+  padding-right: 0;
+}

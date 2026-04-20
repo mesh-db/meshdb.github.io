@@ -1,0 +1,132 @@
+{{ define "main" -}}
+<section class="mdb-hero">
+  <div class="container mdb-hero__inner text-center">
+    <img class="mdb-hero__logo" src="{{ "logo-mark.svg" | relURL }}" alt="MeshDB" width="140" height="140">
+    <h1 class="mdb-hero__title">MeshDB</h1>
+    <p class="mdb-hero__tagline">A distributed, Cypher-compliant graph database — written in Rust.</p>
+    <p class="mdb-hero__sub">
+      Speaks <strong>Bolt&nbsp;5</strong> natively, so every Neo4j driver just works.
+      Backed by <strong>RocksDB</strong>. Replicated with <strong>Raft</strong>
+      or sharded across peers with <strong>2PC</strong>.
+    </p>
+    <div class="mdb-hero__ctas">
+      <a class="btn btn-primary btn-lg me-2 mb-2" href="{{ "docs/getting-started/" | relURL }}">Get started &rarr;</a>
+      <a class="btn btn-outline-primary btn-lg mb-2" href="https://github.com/mesh-db/mesh" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <pre class="mdb-hero__oneliner"><code>cargo build -p mesh-server --release</code></pre>
+  </div>
+</section>
+
+<section class="mdb-section mdb-section--alt">
+  <div class="container">
+    <h2 class="mdb-section__heading">Your Cypher, your drivers, your stack.</h2>
+    <p class="mdb-section__lede">
+      MeshDB is a modern rewrite of the graph database, built from the ground up
+      in safe, fast Rust. It speaks the same wire protocol as Neo4j, so you keep
+      your existing code — while getting a small, auditable binary and a
+      clustering story that's transparent, not magic.
+    </p>
+    <div class="mdb-features">
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#x21AF;</div>
+        <h3>Cypher, not half-Cypher</h3>
+        <p>MATCH, CREATE, MERGE, SET, DELETE, variable-length paths, aggregates, list comprehensions, CASE, UNWIND, parameters — the subset that real workloads actually use.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9741;</div>
+        <h3>Bolt 5 wire protocol</h3>
+        <p>Bolt 5.0–5.4 (with 4.4 fallback): HELLO, RUN, PULL, BEGIN/COMMIT, parameters, explicit transactions. Point the official Neo4j driver at <code>bolt://host:7687</code> and go.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9881;</div>
+        <h3>Rust, end to end</h3>
+        <p>No JVM, no GC pauses, no heap tuning. A single statically-linked binary, built on <code>tokio</code>, <code>tonic</code>, <code>pest</code>, and <code>rust-rocksdb</code>. Memory-safe by construction.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9784;</div>
+        <h3>RocksDB storage</h3>
+        <p>Property graphs persisted in the same LSM engine that powers CockroachDB, TiKV, and Kafka Streams. Durable, fast, and battle-tested.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#8858;</div>
+        <h3>Distribution, two ways</h3>
+        <p>Run a single node, a Raft-replicated cluster via <code>openraft</code>, or a hash-partitioned sharded cluster with a 2PC coordinator and ghost-edge replication.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9741;</div>
+        <h3>gRPC for services</h3>
+        <p>A first-class <code>tonic</code> gRPC surface for service-to-service traffic and cluster internals — no Bolt-adjacent hacks, no extra proxies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mdb-section">
+  <div class="container">
+    <h2 class="mdb-section__heading">From zero to a query in 90 seconds.</h2>
+    <p class="mdb-section__lede">
+      No coordinator to install first, no JDK, no Docker Compose file. Build
+      the binary, write four lines of TOML, and connect with any Bolt driver.
+    </p>
+    <div class="mdb-quickstart">
+      <div class="mdb-quickstart__step">
+        <h4>1. Build the server</h4>
+<pre><code class="language-sh">cargo build -p mesh-server --release</code></pre>
+      </div>
+      <div class="mdb-quickstart__step">
+        <h4>2. A minimal config</h4>
+<pre><code class="language-toml">self_id        = 1
+listen_address = "127.0.0.1:7001"
+data_dir       = "/tmp/mesh-data"
+bolt_address   = "127.0.0.1:7687"</code></pre>
+      </div>
+      <div class="mdb-quickstart__step">
+        <h4>3. Run it</h4>
+<pre><code class="language-sh">RUST_LOG=info mesh-server --config mesh.toml</code></pre>
+      </div>
+      <div class="mdb-quickstart__step">
+        <h4>4. Query it — with the Neo4j driver</h4>
+<pre><code class="language-python">from neo4j import GraphDatabase
+
+driver = GraphDatabase.driver("bolt://127.0.0.1:7687", auth=("any", "any"))
+with driver.session() as s:
+    s.run("CREATE (:Person {name: $name, age: $age})", name="Ada", age=37)
+    for r in s.run("MATCH (p:Person) RETURN p.name AS name ORDER BY name"):
+        print(r["name"])</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mdb-section mdb-section--alt">
+  <div class="container">
+    <h2 class="mdb-section__heading">Cluster mode, without the ceremony.</h2>
+    <div class="mdb-modes">
+      <div class="mdb-mode">
+        <h3>Single-node</h3>
+        <p>One process, one RocksDB directory, both Bolt and gRPC listeners. Perfect for development, embedded services, and small production graphs.</p>
+      </div>
+      <div class="mdb-mode">
+        <h3>Raft-replicated</h3>
+        <p>A single Raft group replicates the full graph to every peer. Cheap local reads everywhere; writes go through the leader with transparent follower forwarding. Powered by <code>openraft</code>.</p>
+      </div>
+      <div class="mdb-mode">
+        <h3>Routing (sharded)</h3>
+        <p>Hash-partitioned nodes across peers. Scatter-gather reads, point-routed writes, and a durable 2PC coordinator for cross-peer atomic transactions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mdb-cta">
+  <div class="container text-center">
+    <h2>Open source. MIT licensed.</h2>
+    <p>Read the docs, browse the source, file an issue, or ship a patch.</p>
+    <div class="mdb-cta__buttons">
+      <a class="btn btn-primary btn-lg me-2 mb-2" href="{{ "docs/" | relURL }}">Read the docs</a>
+      <a class="btn btn-outline-primary btn-lg me-2 mb-2" href="https://github.com/mesh-db/mesh" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-outline-primary btn-lg mb-2" href="https://github.com/mesh-db/mesh/discussions" target="_blank" rel="noopener">Discussions</a>
+    </div>
+  </div>
+</section>
+{{- end }}
