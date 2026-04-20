@@ -13,7 +13,7 @@
       <a class="btn btn-primary btn-lg me-2 mb-2" href="{{ "docs/getting-started/" | relURL }}">Get started &rarr;</a>
       <a class="btn btn-outline-primary btn-lg mb-2" href="https://github.com/mesh-db/mesh" target="_blank" rel="noopener">View on GitHub</a>
     </div>
-    <pre class="mdb-hero__oneliner"><code>cargo build -p mesh-server --release</code></pre>
+    <pre class="mdb-hero__oneliner"><code>cargo install meshdb-server</code></pre>
   </div>
 </section>
 
@@ -66,23 +66,28 @@
     <h2 class="mdb-section__heading">From zero to a query in 90 seconds.</h2>
     <p class="mdb-section__lede">
       No coordinator to install first, no JDK, no Docker Compose file. Build
-      the binary, write four lines of TOML, and connect with any Bolt driver.
+      the binary, pass a handful of flags, and connect with any Bolt driver.
     </p>
     <div class="mdb-quickstart">
       <div class="mdb-quickstart__step">
-        <h4>1. Build the server</h4>
-<pre><code class="language-sh">cargo build -p mesh-server --release</code></pre>
+        <h4>1. Install the server</h4>
+<pre><code class="language-sh">cargo install meshdb-server</code></pre>
       </div>
       <div class="mdb-quickstart__step">
-        <h4>2. A minimal config</h4>
-<pre><code class="language-toml">self_id        = 1
-listen_address = "127.0.0.1:7001"
-data_dir       = "/tmp/mesh-data"
-bolt_address   = "127.0.0.1:7687"</code></pre>
+        <h4>2. Run it</h4>
+<pre><code class="language-sh">RUST_LOG=info meshdb-server \
+  --self-id 1 \
+  --listen-address 127.0.0.1:7001 \
+  --data-dir /tmp/mesh-data \
+  --bolt-address 127.0.0.1:7687</code></pre>
       </div>
       <div class="mdb-quickstart__step">
-        <h4>3. Run it</h4>
-<pre><code class="language-sh">RUST_LOG=info mesh-server --config mesh.toml</code></pre>
+        <h4>3. Or configure it via environment</h4>
+<pre><code class="language-sh">MESHDB_SELF_ID=1 \
+MESHDB_LISTEN_ADDRESS=127.0.0.1:7001 \
+MESHDB_DATA_DIR=/tmp/mesh-data \
+MESHDB_BOLT_ADDRESS=127.0.0.1:7687 \
+  meshdb-server</code></pre>
       </div>
       <div class="mdb-quickstart__step">
         <h4>4. Query it — with the Neo4j driver</h4>
