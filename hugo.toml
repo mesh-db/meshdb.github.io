@@ -8,14 +8,13 @@ enableEmoji = true
 enableGitInfo = true
 
 pygmentsCodeFences = true
-pygmentsUseClasses = false
-pygmentsStyle = "tango"
+pygmentsUseClasses = true
 
 [markup]
   [markup.goldmark.renderer]
     unsafe = true
   [markup.highlight]
-    style = "tango"
+    noClasses = false
 
 [imaging]
   resampleFilter = "CatmullRom"

@@ -1,6 +1,13 @@
 // MeshDB landing page styles.
 // Brand colors mirror the logo gradient: indigo (#4F46E5) → teal (#14B8A6).
 
+// Opt into Docsy's dark-mode Chroma stylesheet. Docsy's base `_code.scss`
+// only wires up the light scheme; this adds the `[data-bs-theme="dark"]`
+// overrides so fenced code blocks use the `native` Chroma palette and the
+// `--td-pre-bg` dark background. Requires class-based highlighting
+// (`pygmentsUseClasses = true` in hugo.toml).
+@import 'td/code-dark';
+
 $mdb-indigo: #4F46E5;
 $mdb-teal:   #14B8A6;
 $mdb-ink:    #0b0d12;
