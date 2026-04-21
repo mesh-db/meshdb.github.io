@@ -480,16 +480,15 @@ $mdb-ink:    #0b0d12;
 
 // --- Page-wide landing background ---------------------------------------
 //
-// Instead of giving each section its own background, the whole landing
-// page rides a single atmospheric gradient: a vertical base, plus six
-// brand-colored radial glows (indigo + teal) distributed top-to-bottom
-// so the hero look carries through to the CTA.
+// The landing page rides a single atmospheric gradient applied directly
+// to `body.td-home` so it spans the full viewport width, ignoring the
+// container-fluid gutters Docsy wraps the content in. Six brand-colored
+// radial glows (indigo + teal) are distributed top-to-bottom so the hero
+// feel carries through to the CTA.
 
-body.td-home .td-main {
-  padding: 0 !important;
-  max-width: 100%;
+body.td-home {
   background:
-    radial-gradient(1200px 900px at 15% -5%,  rgba(79, 70, 229, 0.22), transparent 70%),
+    radial-gradient(1200px 900px at 15% -2%,  rgba(79, 70, 229, 0.22), transparent 70%),
     radial-gradient(1100px 800px at 85%  5%,  rgba(20, 184, 166, 0.18), transparent 70%),
     radial-gradient(1000px 900px at 95% 32%,  rgba(79, 70, 229, 0.12), transparent 70%),
     radial-gradient(1000px 900px at  5% 55%,  rgba(20, 184, 166, 0.12), transparent 70%),
@@ -498,9 +497,9 @@ body.td-home .td-main {
     linear-gradient(180deg, #ffffff 0%, #f5f7fc 55%, #eef0f9 100%);
 }
 
-[data-bs-theme="dark"] body.td-home .td-main {
+[data-bs-theme="dark"] body.td-home {
   background:
-    radial-gradient(1200px 900px at 15% -5%,  rgba(79, 70, 229, 0.30), transparent 70%),
+    radial-gradient(1200px 900px at 15% -2%,  rgba(79, 70, 229, 0.30), transparent 70%),
     radial-gradient(1100px 800px at 85%  5%,  rgba(20, 184, 166, 0.24), transparent 70%),
     radial-gradient(1000px 900px at 95% 32%,  rgba(79, 70, 229, 0.18), transparent 70%),
     radial-gradient(1000px 900px at  5% 55%,  rgba(20, 184, 166, 0.14), transparent 70%),
@@ -509,7 +508,77 @@ body.td-home .td-main {
     linear-gradient(180deg, #0b0d12 0%, #0f1220 50%, #0b0d12 100%);
 }
 
-body.td-home .td-main > * {
-  padding-left: 0;
-  padding-right: 0;
+// Let the body gradient show through Docsy's content wrappers instead of
+// getting painted over by their default backgrounds, and drop the
+// container-fluid gutters so sections stretch edge-to-edge.
+body.td-home {
+  .td-outer {
+    padding: 0;
+    max-width: 100%;
+    background: transparent;
+  }
+
+  .td-main {
+    padding: 0 !important;
+    max-width: 100%;
+    background: transparent;
+
+    > * {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+// --- Dark header + footer on the landing page ---------------------------
+//
+// The gradient middle is bracketed by a solid ink navbar and footer so
+// the page has a clear top/bottom edge in both light and dark themes.
+
+body.td-home {
+  .td-navbar {
+    background-color: $mdb-ink;
+    color: #e9ecf5;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    .navbar-brand,
+    .navbar-brand__name,
+    .nav-link {
+      color: #e9ecf5;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus,
+    .nav-link.active {
+      color: #a5b4fc;
+    }
+
+    // Search/input controls: muted on dark
+    input,
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #e9ecf5;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  .td-footer {
+    background-color: $mdb-ink;
+    color: #94a3b8;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    a {
+      color: #cbd5e1;
+
+      &:hover {
+        color: #a5b4fc;
+      }
+    }
+  }
 }
