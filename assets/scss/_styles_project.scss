@@ -602,13 +602,54 @@ body.td-home {
   }
 }
 
-// Light mode: lift the navbar and footer out of pitch-black and into a
-// deep brand indigo. Still dark enough to anchor the page top and bottom,
-// but harmonizes with the indigo radials in the light-mode gradient.
+// Light mode: mostly-white navbar and footer with a subtle diagonal
+// gradient to a pale indigo tint — keeps the page top and bottom airy
+// and harmonizes with the brand color. All the inner text/link colors
+// are re-themed for readability on light chrome.
 // Dark mode keeps the pure $mdb-ink bg from the base rules above.
-[data-bs-theme="light"] .td-navbar,
-[data-bs-theme="light"] .td-footer {
-  background-color: #3730a3;
+[data-bs-theme="light"] {
+  .td-navbar {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    color: #1e293b;
+    border-bottom: 1px solid rgba(79, 70, 229, 0.10);
+
+    .navbar-brand,
+    .navbar-brand__name,
+    .nav-link {
+      color: #1e293b;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus,
+    .nav-link.active {
+      color: #4f46e5;
+    }
+
+    input,
+    .form-control {
+      background-color: rgba(79, 70, 229, 0.05);
+      border-color: rgba(79, 70, 229, 0.15);
+      color: #1e293b;
+
+      &::placeholder {
+        color: rgba(30, 41, 59, 0.5);
+      }
+    }
+  }
+
+  .td-footer {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    color: #475569;
+    border-top: 1px solid rgba(79, 70, 229, 0.10);
+
+    a {
+      color: #4f46e5;
+
+      &:hover {
+        color: #312e81;
+      }
+    }
+  }
 }
 
 // Landing page zeroes out .td-outer's container-fluid padding, so the
