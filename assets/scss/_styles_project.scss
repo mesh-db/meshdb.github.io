@@ -502,13 +502,12 @@ $mdb-ink:    #0b0d12;
 
 // --- Page-wide landing background ---------------------------------------
 //
-// The landing page rides a single atmospheric gradient applied directly
-// to `body.td-home` so it spans the full viewport width, ignoring the
-// container-fluid gutters Docsy wraps the content in. Six brand-colored
-// radial glows (indigo + teal) are distributed top-to-bottom so the hero
-// feel carries through to the CTA.
+// Every page shares a single atmospheric gradient: a vertical linear base
+// plus six brand-colored radial glows (indigo + teal) distributed
+// top-to-bottom. Applied directly to `body` so it spans the full viewport
+// width, ignoring the container-fluid gutters Docsy wraps the content in.
 
-body.td-home {
+body {
   background:
     radial-gradient(1200px 900px at 15% -2%,  rgba(79, 70, 229, 0.22), transparent 70%),
     radial-gradient(1100px 800px at 85%  5%,  rgba(20, 184, 166, 0.18), transparent 70%),
@@ -519,7 +518,7 @@ body.td-home {
     linear-gradient(180deg, #ffffff 0%, #f5f7fc 55%, #eef0f9 100%);
 }
 
-[data-bs-theme="dark"] body.td-home {
+[data-bs-theme="dark"] body {
   background:
     radial-gradient(1200px 900px at 15% -2%,  rgba(79, 70, 229, 0.30), transparent 70%),
     radial-gradient(1100px 800px at 85%  5%,  rgba(20, 184, 166, 0.24), transparent 70%),
