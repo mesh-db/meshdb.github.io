@@ -13,8 +13,10 @@
 // Container flourish: rounded corners, a thin indigo→teal accent bar
 // along the top. Applied in both themes. Covers both Chroma-highlighted
 // blocks (wrapped in `.highlight > pre.chroma`) and bare `<pre>` blocks
-// from languages Chroma can't lex (e.g. cypher).
-.td-content {
+// from languages Chroma can't lex (e.g. cypher). Scope includes `.td-content`
+// (docs pages) and `.mdb-quickstart__step` (landing-page quickstart cards).
+.td-content,
+.mdb-quickstart__step {
   .highlight,
   pre:not(.mermaid):not(.chroma) {
     position: relative;
@@ -49,16 +51,20 @@
   --td-pre-bg: #f4f5fc;
 
   .td-content .highlight,
-  .td-content pre:not(.mermaid):not(.chroma) {
+  .td-content pre:not(.mermaid):not(.chroma),
+  .mdb-quickstart__step .highlight,
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
     box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
   }
 
-  .td-content pre:not(.mermaid):not(.chroma) {
+  .td-content pre:not(.mermaid):not(.chroma),
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
     color: #1e2230;
     background-color: #f4f5fc;
   }
 
-  .td-content .chroma {
+  .td-content .chroma,
+  .mdb-quickstart__step .chroma {
     color: #1e2230;
     background-color: #f4f5fc;
 
@@ -98,19 +104,23 @@
   --td-pre-bg: #0c0f21;
 
   .td-content .highlight,
-  .td-content pre:not(.mermaid):not(.chroma) {
+  .td-content pre:not(.mermaid):not(.chroma),
+  .mdb-quickstart__step .highlight,
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.05) inset,
       0 12px 32px -12px rgba(79, 70, 229, 0.35),
       0 4px 16px -8px rgba(20, 184, 166, 0.25);
   }
 
-  .td-content pre:not(.mermaid):not(.chroma) {
+  .td-content pre:not(.mermaid):not(.chroma),
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
   }
 
-  .td-content .chroma {
+  .td-content .chroma,
+  .mdb-quickstart__step .chroma {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
 
@@ -355,9 +365,9 @@ $mdb-ink:    #0b0d12;
 
 .mdb-quickstart {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 1.5rem;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -369,22 +379,34 @@ $mdb-ink:    #0b0d12;
     color: $mdb-indigo;
   }
 
+  // Code blocks in the quickstart inherit the shared Chroma theme
+  // (see the Chroma section above). These tweaks keep them compact in
+  // the column and add a touch more padding than Docsy's default.
+  .highlight,
   pre {
-    background: #0b0d12;
-    color: #e9ecf5;
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
+    margin: 0;
     font-size: 0.85rem;
     line-height: 1.5;
-    overflow-x: auto;
-    margin: 0;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   }
 
-  code {
+  pre {
+    padding: 1.25rem 1.5rem;
+  }
+
+  // Position the click-to-copy button in the top-right corner. Docsy's
+  // own rule for this is scoped to `.td-content .highlight`, so it doesn't
+  // apply here — the button would otherwise render inline at the top-left.
+  .highlight button.td-click-to-copy {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    border-width: 0;
     background: transparent;
-    color: inherit;
-    padding: 0;
+    color: var(--bs-tertiary-color);
+
+    &:hover {
+      color: var(--bs-secondary-color);
+    }
   }
 }
 
