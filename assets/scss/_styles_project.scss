@@ -1,12 +1,134 @@
 // MeshDB landing page styles.
 // Brand colors mirror the logo gradient: indigo (#4F46E5) → teal (#14B8A6).
 
-// Opt into Docsy's dark-mode Chroma stylesheet. Docsy's base `_code.scss`
-// only wires up the light scheme; this adds the `[data-bs-theme="dark"]`
-// overrides so fenced code blocks use the `native` Chroma palette and the
-// `--td-pre-bg` dark background. Requires class-based highlighting
-// (`pygmentsUseClasses = true` in hugo.toml).
-@import 'td/code-dark';
+// --- Chroma syntax highlighting ----------------------------------------
+//
+// Custom palette pulled from the brand gradient (indigo → teal) in both
+// light and dark variants. Docsy's default Chroma themes (friendly +
+// native) don't share any color with the logo; these do.
+//
+// Requires class-based highlighting — `pygmentsUseClasses = true` and
+// `markup.highlight.noClasses = false` in hugo.toml.
+
+// Container flourish: rounded corners, a thin indigo→teal accent bar
+// along the top, and a soft shadow in dark mode. Applied in both themes.
+.td-content .highlight {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+
+  pre {
+    border: 0;
+    border-radius: 10px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      rgba(79, 70, 229, 0)   0%,
+      rgba(79, 70, 229, 0.9) 20%,
+      rgba(20, 184, 166, 0.9) 80%,
+      rgba(20, 184, 166, 0) 100%);
+    z-index: 1;
+  }
+}
+
+// Light mode: warm off-white background, saturated indigo keywords,
+// deep teal strings, magenta numbers.
+[data-bs-theme="light"] {
+  --td-pre-bg: #f4f5fc;
+
+  .td-content .highlight {
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
+  }
+
+  .td-content .chroma {
+    color: #1e2230;
+    background-color: #f4f5fc;
+
+    .err { color: #e11d48; background: transparent; }
+    .k, .kc, .kd, .kn, .kr, .kp       { color: #6d28d9; font-weight: 700; }
+    .kt                               { color: #0891b2; font-weight: 600; }
+    .nt                               { color: #6d28d9; font-weight: 600; }
+    .nb, .bp                          { color: #0d9488; }
+    .nf, .fm                          { color: #1d4ed8; font-weight: 600; }
+    .nc, .nn                          { color: #b45309; font-weight: 600; }
+    .nd                               { color: #db2777; font-weight: 600; }
+    .no                               { color: #0e7490; font-weight: 600; }
+    .nv, .vc, .vg, .vi, .vm           { color: #0369a1; }
+    .na                               { color: #0d9488; }
+    .nl                               { color: #6d28d9; font-weight: 600; }
+    .ne                               { color: #e11d48; font-weight: 600; }
+    .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+      color: #0f766e;
+    }
+    .m, .mb, .mf, .mh, .mi, .il, .mo  { color: #be185d; }
+    .o, .ow                           { color: #6d28d9; }
+    .p                                { color: #475569; }
+    .c, .ch, .cm, .c1                 { color: #64748b; font-style: italic; }
+    .cs, .cp, .cpf                    { color: #db2777; font-weight: 600; }
+    .gd                               { color: #e11d48; }
+    .gi                               { color: #15803d; }
+    .gh, .gu                          { color: #1e2230; font-weight: 700; }
+    .gp                               { color: #14b8a6; user-select: none; }
+    .go                               { color: #475569; }
+    .gr, .gt                          { color: #e11d48; }
+  }
+}
+
+// Dark mode: deep slate-indigo background, vivid violet keywords, bright
+// teal strings, hot pink numbers, cyan variables. A touch of glow.
+[data-bs-theme="dark"] {
+  --td-pre-bg: #161a35;
+
+  .td-content .highlight {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 12px 32px -12px rgba(79, 70, 229, 0.35),
+      0 4px 16px -8px rgba(20, 184, 166, 0.25);
+  }
+
+  .td-content .chroma {
+    color: #e6e9f5;
+    background: linear-gradient(180deg, #1a1e3b 0%, #161a33 100%);
+
+    .hl                               { background-color: rgba(139, 92, 246, 0.10); }
+    .lnt, .ln                         { color: #3f4668; }
+
+    .err { color: #fb7185; background: transparent; }
+    .k, .kc, .kd, .kn, .kr, .kp       { color: #c4b5fd; font-weight: 600; }
+    .kt                               { color: #22d3ee; font-weight: 600; }
+    .nt                               { color: #c4b5fd; font-weight: 600; }
+    .nb, .bp                          { color: #5eead4; }
+    .nf, .fm                          { color: #7dd3fc; font-weight: 600; }
+    .nc, .nn                          { color: #fbbf24; font-weight: 600; }
+    .nd                               { color: #f472b6; font-weight: 600; }
+    .no                               { color: #22d3ee; font-weight: 600; }
+    .nv, .vc, .vg, .vi, .vm           { color: #67e8f9; }
+    .na                               { color: #5eead4; }
+    .nl                               { color: #c4b5fd; font-weight: 600; }
+    .ne                               { color: #fb7185; font-weight: 600; }
+    .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+      color: #2dd4bf;
+    }
+    .m, .mb, .mf, .mh, .mi, .il, .mo  { color: #f472b6; }
+    .o, .ow                           { color: #c4b5fd; }
+    .p                                { color: #9ca3af; }
+    .c, .ch, .cm, .c1                 { color: #64748b; font-style: italic; }
+    .cs, .cp, .cpf                    { color: #f472b6; font-weight: 600; }
+    .gd                               { color: #fb7185; }
+    .gi                               { color: #86efac; }
+    .gh, .gu                          { color: #e6e9f5; font-weight: 700; }
+    .gp                               { color: #2dd4bf; user-select: none; }
+    .go                               { color: #94a3b8; }
+    .gr, .gt                          { color: #fb7185; }
+  }
+}
 
 $mdb-indigo: #4F46E5;
 $mdb-teal:   #14B8A6;
