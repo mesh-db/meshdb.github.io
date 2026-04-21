@@ -602,6 +602,15 @@ body.td-home {
   }
 }
 
+// Light mode: lift the navbar and footer out of pitch-black and into a
+// deep brand indigo. Still dark enough to anchor the page top and bottom,
+// but harmonizes with the indigo radials in the light-mode gradient.
+// Dark mode keeps the pure $mdb-ink bg from the base rules above.
+[data-bs-theme="light"] .td-navbar,
+[data-bs-theme="light"] .td-footer {
+  background-color: #3730a3;
+}
+
 // Landing page zeroes out .td-outer's container-fluid padding, so the
 // footer's default `.row` negative margins would overflow the viewport.
 // Null them out — the full-bleed is already handled by the parent.
