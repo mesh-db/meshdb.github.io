@@ -3,32 +3,23 @@
 
 // --- Chroma syntax highlighting ----------------------------------------
 //
-// Unified dark palette for code blocks in both light and dark modes —
-// deep ink background with vivid token colors pulled from the brand
-// gradient (indigo → teal). Inline <code> in prose still tracks the
-// page theme via --td-pre-bg so it reads against the body text.
+// Custom palette pulled from the brand gradient (indigo → teal) in both
+// light and dark variants. Docsy's default Chroma themes (friendly +
+// native) don't share any color with the logo; these do.
 //
 // Requires class-based highlighting — `pygmentsUseClasses = true` and
 // `markup.highlight.noClasses = false` in hugo.toml.
 
-// Inline-code background follows the active theme.
-[data-bs-theme="light"] { --td-pre-bg: #f4f5fc; }
-[data-bs-theme="dark"]  { --td-pre-bg: #0c0f21; }
-
-// Code blocks: rounded corners, indigo→teal accent bar along the top,
-// soft glow, dark gradient background. Covers both Chroma-highlighted
-// blocks (`.highlight > pre.chroma`) and bare `<pre>` blocks from
-// languages Chroma can't lex (e.g. cypher).
+// Container flourish: rounded corners, a thin indigo→teal accent bar
+// along the top. Applied in both themes. Covers both Chroma-highlighted
+// blocks (wrapped in `.highlight > pre.chroma`) and bare `<pre>` blocks
+// from languages Chroma can't lex (e.g. cypher).
 .td-content {
   .highlight,
   pre:not(.mermaid):not(.chroma) {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.05) inset,
-      0 12px 32px -12px rgba(79, 70, 229, 0.35),
-      0 4px 16px -8px rgba(20, 184, 166, 0.25);
 
     &::before {
       content: "";
@@ -50,13 +41,76 @@
     border: 0;
     border-radius: 10px;
   }
+}
 
-  pre:not(.mermaid):not(.chroma) {
+// Light mode: warm off-white background, saturated indigo keywords,
+// deep teal strings, magenta numbers.
+[data-bs-theme="light"] {
+  --td-pre-bg: #f4f5fc;
+
+  .td-content .highlight,
+  .td-content pre:not(.mermaid):not(.chroma) {
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
+  }
+
+  .td-content pre:not(.mermaid):not(.chroma) {
+    color: #1e2230;
+    background-color: #f4f5fc;
+  }
+
+  .td-content .chroma {
+    color: #1e2230;
+    background-color: #f4f5fc;
+
+    .err { color: #e11d48; background: transparent; }
+    .k, .kc, .kd, .kn, .kr, .kp       { color: #6d28d9; font-weight: 700; }
+    .kt                               { color: #0891b2; font-weight: 600; }
+    .nt                               { color: #6d28d9; font-weight: 600; }
+    .nb, .bp                          { color: #0d9488; }
+    .nf, .fm                          { color: #1d4ed8; font-weight: 600; }
+    .nc, .nn                          { color: #b45309; font-weight: 600; }
+    .nd                               { color: #db2777; font-weight: 600; }
+    .no                               { color: #0e7490; font-weight: 600; }
+    .nv, .vc, .vg, .vi, .vm           { color: #0369a1; }
+    .na                               { color: #0d9488; }
+    .nl                               { color: #6d28d9; font-weight: 600; }
+    .ne                               { color: #e11d48; font-weight: 600; }
+    .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+      color: #0f766e;
+    }
+    .m, .mb, .mf, .mh, .mi, .il, .mo  { color: #be185d; }
+    .o, .ow                           { color: #6d28d9; }
+    .p                                { color: #475569; }
+    .c, .ch, .cm, .c1                 { color: #64748b; font-style: italic; }
+    .cs, .cp, .cpf                    { color: #db2777; font-weight: 600; }
+    .gd                               { color: #e11d48; }
+    .gi                               { color: #15803d; }
+    .gh, .gu                          { color: #1e2230; font-weight: 700; }
+    .gp                               { color: #14b8a6; user-select: none; }
+    .go                               { color: #475569; }
+    .gr, .gt                          { color: #e11d48; }
+  }
+}
+
+// Dark mode: deep slate-indigo background, vivid violet keywords, bright
+// teal strings, hot pink numbers, cyan variables. A touch of glow.
+[data-bs-theme="dark"] {
+  --td-pre-bg: #0c0f21;
+
+  .td-content .highlight,
+  .td-content pre:not(.mermaid):not(.chroma) {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 12px 32px -12px rgba(79, 70, 229, 0.35),
+      0 4px 16px -8px rgba(20, 184, 166, 0.25);
+  }
+
+  .td-content pre:not(.mermaid):not(.chroma) {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
   }
 
-  .chroma {
+  .td-content .chroma {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
 
