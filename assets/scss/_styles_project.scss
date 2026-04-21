@@ -12,29 +12,34 @@
 
 // Container flourish: rounded corners, a thin indigo→teal accent bar
 // along the top, and a soft shadow in dark mode. Applied in both themes.
-.td-content .highlight {
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-
-  pre {
-    border: 0;
+// Covers both Chroma-highlighted blocks (wrapped in `.highlight > pre.chroma`)
+// and bare `<pre>` blocks from languages Chroma can't lex (e.g. cypher).
+.td-content {
+  .highlight,
+  pre:not(.mermaid):not(.chroma) {
+    position: relative;
     border-radius: 10px;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+        rgba(79, 70, 229, 0)   0%,
+        rgba(79, 70, 229, 0.9) 20%,
+        rgba(20, 184, 166, 0.9) 80%,
+        rgba(20, 184, 166, 0) 100%);
+      z-index: 1;
+    }
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg,
-      rgba(79, 70, 229, 0)   0%,
-      rgba(79, 70, 229, 0.9) 20%,
-      rgba(20, 184, 166, 0.9) 80%,
-      rgba(20, 184, 166, 0) 100%);
-    z-index: 1;
+  pre:not(.mermaid) {
+    border: 0;
+    border-radius: 10px;
   }
 }
 
@@ -43,8 +48,14 @@
 [data-bs-theme="light"] {
   --td-pre-bg: #f4f5fc;
 
-  .td-content .highlight {
+  .td-content .highlight,
+  .td-content pre:not(.mermaid):not(.chroma) {
     box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
+  }
+
+  .td-content pre:not(.mermaid):not(.chroma) {
+    color: #1e2230;
+    background-color: #f4f5fc;
   }
 
   .td-content .chroma {
@@ -86,11 +97,17 @@
 [data-bs-theme="dark"] {
   --td-pre-bg: #161a35;
 
-  .td-content .highlight {
+  .td-content .highlight,
+  .td-content pre:not(.mermaid):not(.chroma) {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.05) inset,
       0 12px 32px -12px rgba(79, 70, 229, 0.35),
       0 4px 16px -8px rgba(20, 184, 166, 0.25);
+  }
+
+  .td-content pre:not(.mermaid):not(.chroma) {
+    color: #e6e9f5;
+    background: linear-gradient(180deg, #1a1e3b 0%, #161a33 100%);
   }
 
   .td-content .chroma {
