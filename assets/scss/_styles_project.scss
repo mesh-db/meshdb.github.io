@@ -551,55 +551,60 @@ body.td-home {
   }
 }
 
-// --- Dark header + footer on the landing page ---------------------------
+// --- Dark header + footer (site-wide) -----------------------------------
 //
-// The gradient middle is bracketed by a solid ink navbar and footer so
-// the page has a clear top/bottom edge in both light and dark themes.
+// The gradient middle is bracketed by a solid ink navbar and footer on
+// every page so the site has a clear top/bottom edge in both light and
+// dark themes.
 
-body.td-home {
-  .td-navbar {
-    background-color: $mdb-ink;
+.td-navbar {
+  background-color: $mdb-ink;
+  color: #e9ecf5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  .navbar-brand,
+  .navbar-brand__name,
+  .nav-link {
     color: #e9ecf5;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
 
-    .navbar-brand,
-    .navbar-brand__name,
-    .nav-link {
-      color: #e9ecf5;
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link.active {
+    color: #a5b4fc;
+  }
+
+  // Search/input controls: muted on dark
+  input,
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e9ecf5;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
     }
+  }
+}
 
-    .nav-link:hover,
-    .nav-link:focus,
-    .nav-link.active {
+.td-footer {
+  background-color: $mdb-ink;
+  color: #94a3b8;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  a {
+    color: #cbd5e1;
+
+    &:hover {
       color: #a5b4fc;
     }
-
-    // Search/input controls: muted on dark
-    input,
-    .form-control {
-      background-color: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.12);
-      color: #e9ecf5;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-      }
-    }
   }
+}
 
-  .td-footer {
-    background-color: $mdb-ink;
-    color: #94a3b8;
-    margin: 0;
-    padding: 2rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-    a {
-      color: #cbd5e1;
-
-      &:hover {
-        color: #a5b4fc;
-      }
-    }
-  }
+// Landing page zeroes out .td-outer's container-fluid padding, so the
+// footer's default `.row` negative margins would overflow the viewport.
+// Null them out — the full-bleed is already handled by the parent.
+body.td-home .td-footer {
+  margin: 0;
 }
