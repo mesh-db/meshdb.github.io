@@ -13,10 +13,13 @@
 // Container flourish: rounded corners, a thin indigo→teal accent bar
 // along the top. Applied in both themes. Covers both Chroma-highlighted
 // blocks (wrapped in `.highlight > pre.chroma`) and bare `<pre>` blocks
-// from languages Chroma can't lex (e.g. cypher). Scope includes `.td-content`
-// (docs pages) and `.mdb-quickstart__step` (landing-page quickstart cards).
+// from languages Chroma can't lex (e.g. cypher). Scope includes:
+//   - `.td-content` (docs pages)
+//   - `.mdb-quickstart__step` (landing-page quickstart cards)
+//   - `.mdb-hero__oneliner` (landing-page hero install command)
 .td-content,
-.mdb-quickstart__step {
+.mdb-quickstart__step,
+.mdb-hero__oneliner {
   .highlight,
   pre:not(.mermaid):not(.chroma) {
     position: relative;
@@ -53,18 +56,22 @@
   .td-content .highlight,
   .td-content pre:not(.mermaid):not(.chroma),
   .mdb-quickstart__step .highlight,
-  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma),
+  .mdb-hero__oneliner .highlight,
+  .mdb-hero__oneliner pre:not(.mermaid):not(.chroma) {
     box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
   }
 
   .td-content pre:not(.mermaid):not(.chroma),
-  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma),
+  .mdb-hero__oneliner pre:not(.mermaid):not(.chroma) {
     color: #1e2230;
     background-color: #f4f5fc;
   }
 
   .td-content .chroma,
-  .mdb-quickstart__step .chroma {
+  .mdb-quickstart__step .chroma,
+  .mdb-hero__oneliner .chroma {
     color: #1e2230;
     background-color: #f4f5fc;
 
@@ -106,7 +113,9 @@
   .td-content .highlight,
   .td-content pre:not(.mermaid):not(.chroma),
   .mdb-quickstart__step .highlight,
-  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma),
+  .mdb-hero__oneliner .highlight,
+  .mdb-hero__oneliner pre:not(.mermaid):not(.chroma) {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.05) inset,
       0 12px 32px -12px rgba(79, 70, 229, 0.35),
@@ -114,13 +123,15 @@
   }
 
   .td-content pre:not(.mermaid):not(.chroma),
-  .mdb-quickstart__step pre:not(.mermaid):not(.chroma) {
+  .mdb-quickstart__step pre:not(.mermaid):not(.chroma),
+  .mdb-hero__oneliner pre:not(.mermaid):not(.chroma) {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
   }
 
   .td-content .chroma,
-  .mdb-quickstart__step .chroma {
+  .mdb-quickstart__step .chroma,
+  .mdb-hero__oneliner .chroma {
     color: #e6e9f5;
     background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
 
@@ -228,24 +239,35 @@ $mdb-ink:    #0b0d12;
 
 .mdb-hero__oneliner {
   display: inline-block;
-  background: rgba(11, 13, 18, 0.92);
-  color: #e9ecf5;
-  border-radius: 8px;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.95rem;
   margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: left;
 
-  code {
-    background: transparent;
-    color: inherit;
-    padding: 0;
+  // Compact CTA sizing. Visual treatment (gradient bg, accent bar, glow,
+  // token palette) comes from the shared Chroma scope below.
+  .highlight,
+  pre {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
-  &::before {
-    content: "$ ";
-    color: $mdb-teal;
-    user-select: none;
+  pre {
+    padding: 0.75rem 2.5rem 0.75rem 1.25rem;
+  }
+
+  // Position the click-to-copy button in the top-right corner (Docsy's
+  // default rule is scoped to .td-content).
+  .highlight button.td-click-to-copy {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    border-width: 0;
+    background: transparent;
+    color: var(--bs-tertiary-color);
+
+    &:hover {
+      color: var(--bs-secondary-color);
+    }
   }
 }
 
