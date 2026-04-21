@@ -95,7 +95,7 @@
 // Dark mode: deep slate-indigo background, vivid violet keywords, bright
 // teal strings, hot pink numbers, cyan variables. A touch of glow.
 [data-bs-theme="dark"] {
-  --td-pre-bg: #161a35;
+  --td-pre-bg: #0c0f21;
 
   .td-content .highlight,
   .td-content pre:not(.mermaid):not(.chroma) {
@@ -107,12 +107,12 @@
 
   .td-content pre:not(.mermaid):not(.chroma) {
     color: #e6e9f5;
-    background: linear-gradient(180deg, #1a1e3b 0%, #161a33 100%);
+    background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
   }
 
   .td-content .chroma {
     color: #e6e9f5;
-    background: linear-gradient(180deg, #1a1e3b 0%, #161a33 100%);
+    background: linear-gradient(180deg, #0d1128 0%, #0b0e1f 100%);
 
     .hl                               { background-color: rgba(139, 92, 246, 0.10); }
     .lnt, .ln                         { color: #3f4668; }
