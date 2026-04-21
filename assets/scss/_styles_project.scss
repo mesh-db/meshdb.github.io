@@ -557,6 +557,24 @@ body.td-home {
 // every page so the site has a clear top/bottom edge in both light and
 // dark themes.
 
+// Light/dark logo swap. The navbar template renders both images; hide
+// whichever doesn't match the active theme.
+.navbar-brand__logo-light,
+.navbar-brand__logo-dark {
+  height: 40px;
+  width: auto;
+  display: inline-block;
+}
+
+.navbar-brand__logo-dark {
+  display: none;
+}
+
+[data-bs-theme="dark"] {
+  .navbar-brand__logo-light { display: none; }
+  .navbar-brand__logo-dark  { display: inline-block; }
+}
+
 .td-navbar {
   background-color: $mdb-ink;
   color: #e9ecf5;
