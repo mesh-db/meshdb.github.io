@@ -36,10 +36,8 @@ binary.
 
 ## Install
 
-MeshDB is pre-1.0, so the version has to be explicit:
-
 ```sh
-cargo install meshdb-server --version 0.1.0-alpha.9
+cargo install meshdb-server
 ```
 
 The binary lands in `~/.cargo/bin/meshdb-server`. Check the install:
