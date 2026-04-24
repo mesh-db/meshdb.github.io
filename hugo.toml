@@ -47,7 +47,7 @@ pygmentsUseClasses = true
   copyright = "The MeshDB Authors"
 
   version_menu = "Releases"
-  version = "0.0"
+  version = "0.1"
   url_latest_version = "https://meshdb.io"
 
   github_repo = "https://github.com/mesh-db/mesh"

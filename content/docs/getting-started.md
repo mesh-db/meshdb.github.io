@@ -207,11 +207,43 @@ MeshDB supports a broad openCypher surface: `MATCH` / `OPTIONAL MATCH`,
 `WHERE`, `RETURN` (with `DISTINCT`), `WITH`, `ORDER BY` / `LIMIT` / `SKIP`,
 `UNION`, `CREATE`, `MERGE` (with `ON CREATE SET` / `ON MATCH SET`),
 `SET`, `REMOVE`, `DELETE` / `DETACH DELETE`, variable-length paths,
-`shortestPath`, list comprehensions, pattern
-comprehensions, `CASE`, `EXISTS { ... }`, `COUNT { ... }`,
-`COLLECT { ... }`, `CALL { ... }` subqueries, `UNWIND`, `FOREACH`,
-`LOAD CSV`, indexes and constraints — plus the full scalar-function
-and aggregate surface you'd expect from Neo4j.
+Neo4j 5 quantifier shorthand (`->+`, `->*`, `->{n,m}`), `shortestPath`,
+list comprehensions, pattern comprehensions, `CASE`, `EXISTS { ... }`,
+`COUNT { ... }`, `COLLECT { ... }`, `CALL { ... }` subqueries,
+`UNWIND`, `FOREACH`, `LOAD CSV` — plus the full scalar-function and
+aggregate surface you'd expect from Neo4j.
+
+**Schema.** `CREATE INDEX` / `DROP INDEX` / `SHOW INDEXES` for node
+(`FOR (n:Label) ON (n.a, n.b)`) and relationship
+(`FOR ()-[r:TYPE]-() ON (r.p)`) scopes, including composite keys that
+the planner rewrites pattern-property equalities and `WHERE` conjuncts
+against. `CREATE POINT INDEX` backs `point.withinbbox` and
+`point.distance` queries on `Property::Point` columns with a Z-order
+(Morton) quantizer — Cartesian and WGS-84 (geographic) coordinates
+both index. `CREATE CONSTRAINT` / `DROP CONSTRAINT` /
+`SHOW CONSTRAINTS` for `UNIQUE`, `NOT NULL`, `IS :: <TYPE>`, and
+composite `IS NODE KEY`, on node or relationship scope. DDL replicates
+across Raft and routing clusters.
+
+**Transactions.** Bolt `BEGIN` / `COMMIT` / `ROLLBACK` are fully wired
+— multi-statement transactions accumulate their writes and commit
+atomically through the same single-node / Raft / routing-2PC
+machinery as auto-commit RUNs, with read-your-writes overlay between
+RUNs in the same transaction. For large bulk writes that shouldn't
+land in one transaction,
+`CALL { ... } IN TRANSACTIONS [OF n ROWS] [ON ERROR { FAIL | CONTINUE
+| BREAK }]` splits a stream across independently-committed batches.
+
+**APOC.** MeshDB ships an APOC-compatible surface in the
+`meshdb-apoc` crate, enabled by default. Included today:
+`apoc.coll.*`, `apoc.text.*`, `apoc.map.*`, `apoc.util.*` (hashes),
+`apoc.convert.*` (JSON), `apoc.date.*`, `apoc.number.*`,
+`apoc.create.*` (both scalars and write procedures),
+`apoc.refactor.setType`, `apoc.meta.*`, `apoc.agg.*` aggregates,
+and `apoc.periodic.iterate(iterateQuery, actionQuery, config)` as a
+planner-level rewrite over the batched-commit dispatcher. Embed
+callers who want a slimmer binary can opt out per-namespace with
+`--no-default-features`.
 
 For the complete feature inventory and known limitations, see
 [What works](https://github.com/mesh-db/mesh#what-works) in the

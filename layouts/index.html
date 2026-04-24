@@ -59,6 +59,16 @@
         <h3>gRPC for services</h3>
         <p>A first-class <code>tonic</code> gRPC surface for service-to-service traffic and cluster internals — no Bolt-adjacent hacks, no extra proxies.</p>
       </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9881;</div>
+        <h3>APOC-compatible</h3>
+        <p>A broad slice of the APOC surface ships in-tree: <code>apoc.coll.*</code>, <code>apoc.text.*</code>, <code>apoc.map.*</code>, <code>apoc.date.*</code>, <code>apoc.create.*</code>, <code>apoc.agg.*</code>, and <code>apoc.periodic.iterate</code>. On by default, trimmable per namespace.</p>
+      </div>
+      <div class="mdb-feature">
+        <div class="mdb-feature__icon">&#9678;</div>
+        <h3>Spatial and composite indexes</h3>
+        <p>Node and relationship indexes, composite keys, <code>POINT</code> indexes backed by a Z-order quantizer for Cartesian and WGS-84 points. <code>UNIQUE</code>, <code>NOT NULL</code>, type, and <code>NODE KEY</code> constraints — all DDL replicated across Raft and routing clusters.</p>
+      </div>
     </div>
   </div>
 </section>
