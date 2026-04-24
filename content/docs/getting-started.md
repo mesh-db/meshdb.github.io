@@ -207,7 +207,7 @@ MeshDB supports a broad openCypher surface: `MATCH` / `OPTIONAL MATCH`,
 `WHERE`, `RETURN` (with `DISTINCT`), `WITH`, `ORDER BY` / `LIMIT` / `SKIP`,
 `UNION`, `CREATE`, `MERGE` (with `ON CREATE SET` / `ON MATCH SET`),
 `SET`, `REMOVE`, `DELETE` / `DETACH DELETE`, variable-length paths,
-`shortestPath` / `allShortestPaths`, list comprehensions, pattern
+`shortestPath`, list comprehensions, pattern
 comprehensions, `CASE`, `EXISTS { ... }`, `COUNT { ... }`,
 `COLLECT { ... }`, `CALL { ... }` subqueries, `UNWIND`, `FOREACH`,
 `LOAD CSV`, indexes and constraints — plus the full scalar-function
