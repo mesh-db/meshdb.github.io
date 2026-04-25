@@ -207,8 +207,9 @@ MeshDB supports a broad openCypher surface: `MATCH` / `OPTIONAL MATCH`,
 `WHERE`, `RETURN` (with `DISTINCT`), `WITH`, `ORDER BY` / `LIMIT` / `SKIP`,
 `UNION`, `CREATE`, `MERGE` (with `ON CREATE SET` / `ON MATCH SET`),
 `SET`, `REMOVE`, `DELETE` / `DETACH DELETE`, variable-length paths,
-Neo4j 5 quantifier shorthand (`->+`, `->*`, `->{n,m}`), `shortestPath`,
-list comprehensions, pattern comprehensions, `CASE`, `EXISTS { ... }`,
+Neo4j 5 quantifier shorthand (`->+`, `->*`, `->{n,m}`), `shortestPath` /
+`allShortestPaths`, list comprehensions, pattern comprehensions, `CASE`,
+`EXISTS { ... }`,
 `COUNT { ... }`, `COLLECT { ... }`, `CALL { ... }` subqueries,
 `UNWIND`, `FOREACH`, `LOAD CSV` — plus the full scalar-function and
 aggregate surface you'd expect from Neo4j.
@@ -240,7 +241,14 @@ land in one transaction,
 `apoc.convert.*` (JSON), `apoc.date.*`, `apoc.number.*`,
 `apoc.create.*` (both scalars and write procedures),
 `apoc.refactor.setType`, `apoc.meta.*`, `apoc.agg.*` aggregates,
-and `apoc.periodic.iterate(iterateQuery, actionQuery, config)` as a
+`apoc.path.*` (`expand`, `expandConfig`, `subgraphAll`,
+`subgraphNodes`, `spanningTree`, plus path shaping scalars),
+`apoc.cypher.run` / `apoc.cypher.doIt`,
+`apoc.load.{json,csv}` and `apoc.export.{csv,json,cypher}.{all,query}`
+(gated through an `[apoc_import]` security surface),
+`apoc.trigger.*` (`install` / `drop` / `list` / `start` / `stop`,
+all four phases, replicated across Raft / routing), and
+`apoc.periodic.iterate(iterateQuery, actionQuery, config)` as a
 planner-level rewrite over the batched-commit dispatcher. Embed
 callers who want a slimmer binary can opt out per-namespace with
 `--no-default-features`.

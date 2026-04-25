@@ -67,8 +67,6 @@ regression gating yet.
 
 ## Known limitations deferred past 0.1.0
 
-- `allShortestPaths` parses but the planner rejects it. Single
-  `shortestPath(...)` works.
 - LDG streaming partitioner is not implemented — only the FNV-1a
   hash partitioner. Adequate for uniform workloads; skew-sensitive
   workloads will want the streaming partitioner.
