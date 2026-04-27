@@ -125,7 +125,7 @@ with driver.session() as s:
       </div>
       <div class="mdb-mode">
         <h3>Raft-replicated</h3>
-        <p>A single Raft group replicates the full graph to every peer. Cheap local reads everywhere; writes go through the leader with transparent follower forwarding. Powered by <code>openraft</code>.</p>
+        <p>A single Raft group replicates the full graph to every peer. Cheap local reads everywhere; writes go through the leader with transparent follower forwarding. Powered by <code>openraft</code>. Need sharding <em>and</em> replication? <code>mode = "multi-raft"</code> gives each partition its own Raft group, with a Spanner-style 2PC for cross-partition writes.</p>
       </div>
       <div class="mdb-mode">
         <h3>Routing (sharded)</h3>
