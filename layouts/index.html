@@ -102,7 +102,18 @@ MESHDB_BOLT_ADDRESS=127.0.0.1:7687 \
   meshdb-server` "sh" "" }}
       </div>
       <div class="mdb-quickstart__step">
-        <h4>4. Query it — with the Neo4j driver</h4>
+        <h4>4. Or, run with Docker</h4>
+        {{ highlight `docker run --rm \
+  -p 7001:7001 -p 7687:7687 \
+  -v meshdb-data:/data \
+  -e MESHDB_SELF_ID=1 \
+  -e MESHDB_LISTEN_ADDRESS=0.0.0.0:7001 \
+  -e MESHDB_BOLT_ADDRESS=0.0.0.0:7687 \
+  -e MESHDB_DATA_DIR=/data \
+  darkspar/meshdb-server:0.2.0` "sh" "" }}
+      </div>
+      <div class="mdb-quickstart__step">
+        <h4>5. Query it — with the Neo4j driver</h4>
         {{ highlight `from neo4j import GraphDatabase
 
 driver = GraphDatabase.driver("bolt://127.0.0.1:7687", auth=("any", "any"))

@@ -19,6 +19,11 @@ For cluster mode, authentication, and TLS, see the
 
 ## Prerequisites
 
+If you're using the Docker image (see below), you only need a working
+Docker install — skip ahead to [Install](#install).
+
+For a `cargo install` or build-from-source path:
+
 - **Rust toolchain** (stable) — the easiest install path is
   [`rustup`](https://rustup.rs).
 - **`clang` / `libclang-dev`** on Linux. `rust-rocksdb` generates its
@@ -36,6 +41,8 @@ binary.
 
 ## Install
 
+### Option 1: `cargo install`
+
 ```sh
 cargo install meshdb-server
 ```
@@ -46,7 +53,24 @@ The binary lands in `~/.cargo/bin/meshdb-server`. Check the install:
 meshdb-server --version
 ```
 
-Prefer to build from source? Clone the repo and run:
+### Option 2: Docker
+
+A prebuilt image is published on Docker Hub as
+[`darkspar/meshdb-server`](https://hub.docker.com/r/darkspar/meshdb-server).
+Pull the version-pinned tag:
+
+```sh
+docker pull darkspar/meshdb-server:0.2.0
+```
+
+`:latest` tracks the most recent release; pin to a specific tag like
+`:0.2.0` for reproducible deployments. The image runs `meshdb-server`
+as its entrypoint, so any flag or `MESHDB_*` env var documented below
+works inside the container.
+
+### Option 3: Build from source
+
+Clone the repo and run:
 
 ```sh
 git clone https://github.com/mesh-db/mesh.git
@@ -105,6 +129,40 @@ When `--config` and flags are both present, the TOML file is loaded first
 and any set flags override the matching fields. Structured settings
 (`peers`, `bolt_auth`, `bolt_tls`, `grpc_tls`) stay TOML-only.
 Run `meshdb-server --help` for the full flag list.
+
+### Option D: Docker
+
+The same env vars work directly with the published image. Bind the
+listeners to `0.0.0.0` inside the container so Docker's port forwarding
+can reach them, and mount a volume for `MESHDB_DATA_DIR` so your graph
+survives container restarts:
+
+```sh
+docker run --rm \
+  -p 7001:7001 -p 7687:7687 \
+  -v meshdb-data:/data \
+  -e MESHDB_SELF_ID=1 \
+  -e MESHDB_LISTEN_ADDRESS=0.0.0.0:7001 \
+  -e MESHDB_BOLT_ADDRESS=0.0.0.0:7687 \
+  -e MESHDB_DATA_DIR=/data \
+  -e RUST_LOG=info \
+  darkspar/meshdb-server:0.2.0
+```
+
+To use a TOML config instead, mount it into the container and pass
+`--config`:
+
+```sh
+docker run --rm \
+  -p 7001:7001 -p 7687:7687 \
+  -v meshdb-data:/data \
+  -v /tmp/mesh.toml:/etc/meshdb/mesh.toml:ro \
+  darkspar/meshdb-server:0.2.0 --config /etc/meshdb/mesh.toml
+```
+
+Remember that any `listen_address` / `bolt_address` set in the TOML must
+also bind to `0.0.0.0` (or the container IP) for the published ports to
+be reachable from the host.
 
 Whichever option you pick, you should see:
 
