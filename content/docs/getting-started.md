@@ -269,9 +269,18 @@ project README.
   ([`[grpc_tls]`](https://github.com/mesh-db/mesh#grpc-tls)) can
   terminate TLS directly.
 - **Go multi-peer.** Set `mode = "raft"` for a fully-replicated cluster,
-  or `mode = "routing"` for hash-partitioned sharding with 2PC. See
-  [Cluster mode](https://github.com/mesh-db/mesh#cluster-mode-multi-peer)
+  `mode = "routing"` for hash-partitioned sharding with 2PC, or
+  `mode = "multi-raft"` for sharding *with* per-partition replication.
+  See [Cluster mode](https://github.com/mesh-db/mesh#cluster-mode-multi-peer)
   for worked three-peer configs.
+- **Deploy to Kubernetes.** The
+  [`deploy/`](https://github.com/mesh-db/mesh/tree/main/deploy) tree
+  ships a StatefulSet, headless + Bolt services, a PodDisruptionBudget,
+  Prometheus alerts, and a Grafana dashboard, plus a day-2
+  [`RUNBOOK.md`](https://github.com/mesh-db/mesh/blob/main/deploy/RUNBOOK.md)
+  for rolling upgrades, backup/restore, TLS rotation, and
+  add/remove-peer flows. The reference image is
+  `darkspar/meshdb-server:0.2.0`.
 - **Browse the source.** MeshDB is MIT-licensed on
   [GitHub](https://github.com/mesh-db/mesh). Issues and discussions
   are welcome.
