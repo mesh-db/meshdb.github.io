@@ -1,0 +1,48 @@
+variables:
+  HUGO_VERSION: "0.160.1"
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_DEPTH: "0"
+  # Flip to "true" to re-enable automatic publishing to GitLab Pages.
+  PUBLISH_PAGES: "false"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: node:20-bookworm
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends wget ca-certificates
+    - wget -O /tmp/hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+    - dpkg -i /tmp/hugo.deb
+  script:
+    - npm ci
+    - hugo --gc --minify --baseURL "${CI_PAGES_URL}/"
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Publishing to GitLab Pages"
+  needs:
+    - build
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $PUBLISH_PAGES == "true" && $CI_COMMIT_BRANCH == "main"
+    - if: $PUBLISH_PAGES == "true" && $CI_PIPELINE_SOURCE == "web"
