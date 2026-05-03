@@ -41,7 +41,7 @@ pygmentsUseClasses = true
   [[menu.main]]
     name = "GitHub"
     weight = 30
-    url = "https://github.com/mesh-db/mesh"
+    url = "https://github.com/mesh-db/meshdb"
 
 [params]
   copyright = "The MeshDB Authors"
@@ -50,8 +50,8 @@ pygmentsUseClasses = true
   version = "0.2"
   url_latest_version = "https://meshdb.io"
 
-  github_repo = "https://github.com/mesh-db/mesh"
-  github_project_repo = "https://github.com/mesh-db/mesh"
+  github_repo = "https://github.com/mesh-db/meshdb"
+  github_project_repo = "https://github.com/mesh-db/meshdb"
 
   offlineSearch = true
   prism_syntax_highlighting = false
@@ -70,21 +70,21 @@ pygmentsUseClasses = true
 
   [params.ui.feedback]
     enable = true
-    yes = 'Glad to hear it! Please <a href="https://github.com/mesh-db/mesh/issues/new">tell us how we can improve</a>.'
-    no = 'Sorry to hear that. Please <a href="https://github.com/mesh-db/mesh/issues/new">tell us how we can improve</a>.'
+    yes = 'Glad to hear it! Please <a href="https://github.com/mesh-db/meshdb/issues/new">tell us how we can improve</a>.'
+    no = 'Sorry to hear that. Please <a href="https://github.com/mesh-db/meshdb/issues/new">tell us how we can improve</a>.'
 
   [[params.links.user]]
     name = "GitHub Discussions"
-    url = "https://github.com/mesh-db/mesh/discussions"
+    url = "https://github.com/mesh-db/meshdb/discussions"
     icon = "fab fa-github"
     desc = "Discussion and help from your fellow users"
   [[params.links.developer]]
     name = "GitHub"
-    url = "https://github.com/mesh-db/mesh"
+    url = "https://github.com/mesh-db/meshdb"
     icon = "fab fa-github"
     desc = "Development takes place here!"
   [[params.links.developer]]
     name = "GitHub Issues"
-    url = "https://github.com/mesh-db/mesh/issues"
+    url = "https://github.com/mesh-db/meshdb/issues"
     icon = "fas fa-bug"
     desc = "Report bugs or request features"

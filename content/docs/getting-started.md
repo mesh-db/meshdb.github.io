@@ -15,7 +15,7 @@ This page walks through:
 4. Running your first Cypher query
 
 For cluster mode, authentication, and TLS, see the
-[project README](https://github.com/mesh-db/mesh).
+[project README](https://github.com/mesh-db/meshdb).
 
 ## Prerequisites
 
@@ -73,7 +73,7 @@ works inside the container.
 Clone the repo and run:
 
 ```sh
-git clone https://github.com/mesh-db/mesh.git
+git clone https://github.com/mesh-db/meshdb.git
 cd mesh
 cargo build -p meshdb-server --release
 ```
@@ -312,33 +312,33 @@ callers who want a slimmer binary can opt out per-namespace with
 `--no-default-features`.
 
 For the complete feature inventory and known limitations, see
-[What works](https://github.com/mesh-db/mesh#what-works) in the
+[What works](https://github.com/mesh-db/meshdb#what-works) in the
 project README.
 
 ## Next steps
 
 - **Lock down the Bolt listener.** The default accepts any credentials —
   fine for local dev, not for anything shared. Add a
-  [`[[bolt_auth.users]]`](https://github.com/mesh-db/mesh#bolt-authentication)
+  [`[[bolt_auth.users]]`](https://github.com/mesh-db/meshdb#bolt-authentication)
   block (plain text or bcrypt) to require authentication.
 - **Add TLS.** Both the Bolt listener
-  ([`[bolt_tls]`](https://github.com/mesh-db/mesh#bolt-tls)) and the
+  ([`[bolt_tls]`](https://github.com/mesh-db/meshdb#bolt-tls)) and the
   cluster-internal gRPC surface
-  ([`[grpc_tls]`](https://github.com/mesh-db/mesh#grpc-tls)) can
+  ([`[grpc_tls]`](https://github.com/mesh-db/meshdb#grpc-tls)) can
   terminate TLS directly.
 - **Go multi-peer.** Set `mode = "raft"` for a fully-replicated cluster,
   `mode = "routing"` for hash-partitioned sharding with 2PC, or
   `mode = "multi-raft"` for sharding *with* per-partition replication.
-  See [Cluster mode](https://github.com/mesh-db/mesh#cluster-mode-multi-peer)
+  See [Cluster mode](https://github.com/mesh-db/meshdb#cluster-mode-multi-peer)
   for worked three-peer configs.
 - **Deploy to Kubernetes.** The
-  [`deploy/`](https://github.com/mesh-db/mesh/tree/main/deploy) tree
+  [`deploy/`](https://github.com/mesh-db/meshdb/tree/main/deploy) tree
   ships a StatefulSet, headless + Bolt services, a PodDisruptionBudget,
   Prometheus alerts, and a Grafana dashboard, plus a day-2
-  [`RUNBOOK.md`](https://github.com/mesh-db/mesh/blob/main/deploy/RUNBOOK.md)
+  [`RUNBOOK.md`](https://github.com/mesh-db/meshdb/blob/main/deploy/RUNBOOK.md)
   for rolling upgrades, backup/restore, TLS rotation, and
   add/remove-peer flows. The reference image is
   `darkspar/meshdb-server:0.2.0`.
 - **Browse the source.** MeshDB is MIT-licensed on
-  [GitHub](https://github.com/mesh-db/mesh). Issues and discussions
+  [GitHub](https://github.com/mesh-db/meshdb). Issues and discussions
   are welcome.

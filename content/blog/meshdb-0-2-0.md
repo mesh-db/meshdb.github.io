@@ -20,10 +20,10 @@ cargo install meshdb-server
 
 The reference container image is `darkspar/meshdb-server:0.2.0` on
 Docker Hub. The new
-[`deploy/`](https://github.com/mesh-db/mesh/tree/main/deploy) tree
+[`deploy/`](https://github.com/mesh-db/meshdb/tree/main/deploy) tree
 in the repo ships production-shaped Kubernetes manifests, a
 Prometheus alert bundle, an importable Grafana dashboard, and a
-day-2 [`RUNBOOK.md`](https://github.com/mesh-db/mesh/blob/main/deploy/RUNBOOK.md).
+day-2 [`RUNBOOK.md`](https://github.com/mesh-db/meshdb/blob/main/deploy/RUNBOOK.md).
 
 ## Multi-Raft mode
 
@@ -131,7 +131,7 @@ the deferral and locks in the behavior with paranoia tests.
 
 ## Production deployment artifacts
 
-The new [`deploy/`](https://github.com/mesh-db/mesh/tree/main/deploy)
+The new [`deploy/`](https://github.com/mesh-db/meshdb/tree/main/deploy)
 tree:
 
 - `k8s/` — ConfigMap with operational knobs set, headless + Bolt
